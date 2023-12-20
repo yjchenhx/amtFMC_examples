@@ -29,8 +29,8 @@ reference = fmc.amtFmcRfReset(ip,port,username,password)
 # numOfSamples (optional): Number of IQ samples. Default value: 16384.
 # rxAAtt (optional): RxA attenuation value in dB.: Range: 0 to -31 dB. Default value: 0 dB.
 # rxAtt (optional): AD9364’s Rx gain in dB. Range: 0 to 70 dB. Default value: 0 dB.
-fmc.amtFmcRxConfig(rfPort="A", frequency=10000, rate=30.72, bw=18, numOfSamples=16384, rxAAtt=0, rxGain=20)
-
+fmc.amtFmcRxConfig(rfPort="A", frequency=440, rate=30.72, bw=18, numOfSamples=16384, rxAAtt=0, rxGain=40)
+time.sleep(2)
 # Receive one section of data.
 # Currently FMC5030 Rx doesn’t support cyclic buffer. There are data gaps between each section of receiving data.
 rx = fmc.amtFmcRfRxRead()

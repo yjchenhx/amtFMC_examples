@@ -1,4 +1,4 @@
-import sys, time, getopt
+import sys, time
 # Import FMC5030 python function.
 import amtFMC as fmc
 from threading import Thread, Event
@@ -16,7 +16,7 @@ def transmit(data=[]):
     # Set global variable 'stop_threads' to stop all threads.
     global stop_threads
     # Config Tx properties for transmission.
-    fmc.amtFmcTxConfig(rfPort="A", frequency=2400, rate=30.72, bw=18, txAtt=0, cyclic=True)
+    fmc.amtFmcTxConfig(rfPort="A", frequency=9000, rate=30.72, bw=18, txAtt=0, cyclic=True)
     # Start transmitting data.
     fmc.amtFmcRfTxStart(data)
     while True:
@@ -31,7 +31,7 @@ def receive(q, cont):
     # Set global variable 'stop_threads' to stop threads.
     global stop_threads
     # Config Rx properties for receiving.
-    fmc.amtFmcRxConfig(rfPort="A", frequency=2400, rate=30.72, bw=18, numOfSamples=16384, rxAAtt=0, rxGain=20)
+    fmc.amtFmcRxConfig(rfPort="A", frequency=9000, rate=30.72, bw=18, numOfSamples=16384, rxAAtt=0, rxGain=10)
     # Receive one section of data.
     # Currently FMC5030 Rx doesn’t support cyclic buffer. There are data gaps between each section of receiving data.
     rx = fmc.amtFmcRfRxRead()
