@@ -1,4 +1,4 @@
-import amtFMC as fmc
+import amtFMC5030 as fmc
 import warnings
 warnings.filterwarnings("ignore",category=UserWarning)
 

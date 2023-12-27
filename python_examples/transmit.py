@@ -1,6 +1,6 @@
 import sys, time
 # Import FMC5030 python function.
-import amtFMC as fmc
+import amtFMC5030 as fmc
 import numpy as np
 import warnings
 warnings.filterwarnings("ignore",category=UserWarning)        

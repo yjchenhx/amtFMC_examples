@@ -1,6 +1,6 @@
 import sys, time
 # Import FMC5030 python function.
-import amtFMC as fmc
+import amtFMC5030 as fmc
 import numpy as np
 from numpy.fft import fft, fftfreq, fftshift
 from scipy import signal
@@ -19,7 +19,7 @@ password = "analog" # Zedboard's password to the user
 # Reset and initialize FMC5030.
 # Return a reference, which denotes the connection between PC and device.
 reference = fmc.amtFmcRfReset(ip,port,username,password)
-
+time.sleep(2)
 # Config Rx properties for receiving.
 # reference: Connection to the device.
 # rfPort: Select receiving port, A or B. Port A supports frequency from 70 MHz to 18 GHz, Port B supports frquency from 70 MHz to 6 GHz.
@@ -29,7 +29,7 @@ reference = fmc.amtFmcRfReset(ip,port,username,password)
 # numOfSamples (optional): Number of IQ samples. Default value: 16384.
 # rxAAtt (optional): RxA attenuation value in dB.: Range: 0 to -31 dB. Default value: 0 dB.
 # rxAtt (optional): AD9364’s Rx gain in dB. Range: 0 to 70 dB. Default value: 0 dB.
-fmc.amtFmcRxConfig(rfPort="A", frequency=440, rate=30.72, bw=18, numOfSamples=16384, rxAAtt=0, rxGain=40)
+fmc.amtFmcRxConfig(rfPort="A", frequency=2450, rate=30.72, bw=18, numOfSamples=16384, rxAAtt=0, rxGain=20)
 time.sleep(2)
 # Receive one section of data.
 # Currently FMC5030 Rx doesn’t support cyclic buffer. There are data gaps between each section of receiving data.
@@ -39,6 +39,7 @@ rx = fmc.amtFmcRfRxRead()
 data = []
 for ii in range (len(rx[0])):
     data.append(rx[0][ii]+1j*rx[1][ii])
+ 
     
 # Plot data.
 # Get current sample rate.

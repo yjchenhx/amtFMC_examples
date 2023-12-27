@@ -1,6 +1,7 @@
-import sys, time
+import sys, time, getopt
+import amtFMC5030 as fmc
 # Import FMC5030 python function.
-import amtFMC as fmc
+# import amtFMC as fmc
 from threading import Thread, Event
 import queue
 import numpy as np
@@ -16,7 +17,7 @@ def transmit(data=[]):
     # Set global variable 'stop_threads' to stop all threads.
     global stop_threads
     # Config Tx properties for transmission.
-    fmc.amtFmcTxConfig(rfPort="A", frequency=9000, rate=30.72, bw=18, txAtt=0, cyclic=True)
+    fmc.amtFmcTxConfig(rfPort="A", frequency=2400, rate=30.72, bw=18, txAtt=0, cyclic=True)
     # Start transmitting data.
     fmc.amtFmcRfTxStart(data)
     while True:
@@ -31,7 +32,7 @@ def receive(q, cont):
     # Set global variable 'stop_threads' to stop threads.
     global stop_threads
     # Config Rx properties for receiving.
-    fmc.amtFmcRxConfig(rfPort="A", frequency=9000, rate=30.72, bw=18, numOfSamples=16384, rxAAtt=0, rxGain=10)
+    fmc.amtFmcRxConfig(rfPort="A", frequency=2400, rate=30.72, bw=18, numOfSamples=16384, rxAAtt=0, rxGain=10)
     # Receive one section of data.
     # Currently FMC5030 Rx doesn’t support cyclic buffer. There are data gaps between each section of receiving data.
     rx = fmc.amtFmcRfRxRead()
@@ -130,8 +131,8 @@ if __name__ == "__main__":
     N = 1024 # number of data points
     ts = 1 / 30000.0 # time difference
     t = np.arange(0, N * ts, ts) # elaspe time, start from t=0
-    i = np.cos(2 * np.pi * t * fc) * 2 ** 14 # cos(2*pi*t*fc)*(2^14)
-    q = np.sin(2 * np.pi * t * fc) * 2 ** 14 # sin(2*pi*t*fc)*(2^14)
+    i = np.cos(2 * np.pi * t * fc) * 2 ** 15 # cos(2*pi*t*fc)*(2^14)
+    q = np.sin(2 * np.pi * t * fc) * 2 ** 15 # sin(2*pi*t*fc)*(2^14)
     txdata = i + 1j * q # make i as real part and q as imag part of txdata
     data=[]
     data.append(txdata)

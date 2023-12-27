@@ -1,5 +1,5 @@
-# Import FMC5030 python function.
-import amtFMC as fmc
+# Import FMC5030 python library.
+import amtFMC5030 as fmc
 import warnings
 warnings.filterwarnings("ignore",category=UserWarning)        
 
